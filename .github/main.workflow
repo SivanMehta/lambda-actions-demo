@@ -1,11 +1,6 @@
 workflow "Push to S3" {
   on = "push"
-  resolves = "zip file"
-}
-
-action "zip file" {
-  uses = "actions/npm@e7aaefed7c9f2e83d493ff810f17fa5ccd7ed437"
-  args = "run build"
+  resolves = "Update Lambda to uploaded code"
 }
 
 action "Upload to S3" {
