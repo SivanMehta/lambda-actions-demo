@@ -1,8 +1,8 @@
 workflow "Push to S3" {
   on = "push"
   resolves = [
-    "Upload Lambda - East",
-    "Upload Lambda - West"
+    "Upload Lambda - us-east-1",
+    "Upload Lambda - us-west-2"
   ]
 }
 
@@ -12,7 +12,7 @@ action "Upload to S3" {
   secrets = ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
 }
 
-action "Upload Lambda - West" {
+action "Upload Lambda - us-west-2" {
   needs = "Upload to S3"
   uses = "actions/aws/cli@8d318706868c00929f57a0b618504dcdda52b0c9"
   args = [
@@ -24,14 +24,8 @@ action "Upload Lambda - West" {
   secrets = ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
 }
 
-action "Set Region" {
-  uses = "actions/aws/cli@8d318706868c00929f57a0b618504dcdda52b0c9"
-  args = "configure --region us-east-1"
-  secrets = ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
-}
-
-action "Upload Lambda - East" {
-  needs = ["Upload to S3", "Set Region"]
+action "Upload Lambda - us-east-1" {
+  needs = [ "Upload to S3" ]
   uses = "actions/aws/cli@8d318706868c00929f57a0b618504dcdda52b0c9"
   args = [
     "lambda update-function-code",
