@@ -3,14 +3,14 @@ workflow "Push to S3" {
   resolves = ["Upload to S3"]
 }
 
-action "zip file" {
-  uses = "docker://image2"
-  args = "zip out.zip index.js"
+action "pack up file" {
+  uses = "actions/npm@e7aaefed7c9f2e83d493ff810f17fa5ccd7ed437"
+  args = "npm pack"
 }
 
 action "Upload to S3" {
-  needs = "zip file"
   uses = "actions/aws/cli@8d318706868c00929f57a0b618504dcdda52b0c9"
-  args = "s3 cp out.zip s3://github-action-lambda"
+  args = "s3 cp lambda-actions-demo-0.0.0.tgz s3://github-action-lambda"
   secrets = ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
+  needs = ["pack up file"]
 }
