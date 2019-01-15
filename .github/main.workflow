@@ -5,7 +5,7 @@ workflow "Push to S3" {
 
 action "zip file" {
   uses = "actions/npm@e7aaefed7c9f2e83d493ff810f17fa5ccd7ed437"
-  args = "build"
+  args = "run build"
 }
 
 action "Upload to S3" {
