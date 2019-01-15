@@ -12,6 +12,11 @@ action "Upload to S3" {
 action "Update Lambda to uploaded code" {
   needs = "Upload to S3"
   uses = "actions/aws/cli@8d318706868c00929f57a0b618504dcdda52b0c9"
-  args = "lambda update-function-code --function-name from-github-action --s3-bucket github-action-lambda --s3-key out.zip"
+  args = [
+    "lambda update-function-code",
+    "--function-name arn:aws:lambda:us-west-2:823079572349:function:from-github-action",
+    "--s3-bucket github-action-lambda",
+    "--s3-key out.zip"
+  ]
   secrets = ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
 }
