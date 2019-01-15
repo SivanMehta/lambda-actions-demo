@@ -1,7 +1,7 @@
 workflow "Push to S3" {
   on = "push"
   resolves = [
-    "Upload Lambda - East"
+    "Upload Lambda - East",
     "Upload Lambda - West"
   ]
 }
