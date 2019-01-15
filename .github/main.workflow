@@ -4,7 +4,7 @@ workflow "Push to S3" {
 }
 
 action "zip file" {
-  uses = "docker://image1"
+  uses = "docker://image2"
   args = "zip out.zip index.js"
 }
 
