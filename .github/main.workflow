@@ -24,8 +24,14 @@ action "Upload Lambda - West" {
   secrets = ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
 }
 
+action "Set Region" {
+  uses = "actions/aws/cli@8d318706868c00929f57a0b618504dcdda52b0c9"
+  args = "configure --region us-east-1"
+  secrets = ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
+}
+
 action "Upload Lambda - East" {
-  needs = "Upload to S3"
+  needs = ["Upload to S3", "Set Region"]
   uses = "actions/aws/cli@8d318706868c00929f57a0b618504dcdda52b0c9"
   args = [
     "lambda update-function-code",
