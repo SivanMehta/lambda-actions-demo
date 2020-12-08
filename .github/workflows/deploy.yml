@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    name: Build lambda contents
+    name: Build artifact
     runs-on: ubuntu-latest
       
     steps:
@@ -30,7 +30,7 @@ jobs:
 
   deploy:
     needs: build
-    name: Deploys artifact as lambda
+    name: Deploy artifact as Lambda
     runs-on: ubuntu-latest
     
     steps:
