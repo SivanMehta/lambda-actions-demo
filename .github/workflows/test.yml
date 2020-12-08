@@ -1,0 +1,21 @@
+name: Test
+on:
+  push:
+    pull_request: [ master ]
+
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+      
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+
+      - name: Test
+        run: npm cit
