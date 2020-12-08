@@ -1,5 +1,6 @@
 {
   "scripts": {
-    "build": "zip out.zip index.js"
+    "build": "zip out.zip index.js",
+    "test": "echo it works"
   }
 }

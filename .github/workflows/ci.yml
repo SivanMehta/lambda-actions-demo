@@ -1,0 +1,54 @@
+name: Build and deploy Lambda
+on: [push]
+jobs:
+  build:
+    name: Build lambda contents
+    runs-on: ubuntu-latest
+      
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+
+      - name: Build Artifact
+        run: |
+          npm ci
+          npm run build
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: demo-lambda
+          path: out.zip
+
+  deploy:
+    needs: build
+    name: Deploys artifact as lambda
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: demo-lambda
+
+      - name: Display structure of downloaded files
+        run: ls -R
+
+      - name: Setup AWS
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
+
+      - name: Upload artifact
+        run: aws s3 cp out.zip s3://github-action-lambda
+
+      - name: Update Lambda
+        run: |
+          aws lambda update-function-code  --function-name demo-lambda --s3-bucket github-action-lambda --s3-key out.zip

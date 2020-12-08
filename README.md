@@ -1,2 +1,2 @@
 # lambda-actions-demo
-Trying out github actions but making a simple lambda
+Trying out github actions by deploying a simple lambda

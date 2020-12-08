@@ -1,7 +1,9 @@
 exports.handler = async (event) => {
   const response = {
     statusCode: 200,
-    body: JSON.stringify('Hello from S3!')
+    body: JSON.stringify({
+      message: 'It worked!'
+    })
   };
 
   return response;
