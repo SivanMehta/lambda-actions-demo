@@ -19,7 +19,7 @@ jobs:
 
       - name: Build Artifact
         run: |
-          npm cit
+          npm ci
           npm run build
 
       - name: Upload Artifact
