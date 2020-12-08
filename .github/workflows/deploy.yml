@@ -19,13 +19,13 @@ jobs:
 
       - name: Build Artifact
         run: |
-          npm ci
+          npm cit
           npm run build
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: demo-lambda
+          name: lambda
           path: out.zip
 
   deploy:
@@ -37,10 +37,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
-          name: demo-lambda
-
-      - name: Display structure of downloaded files
-        run: ls -R
+          name: lambda
 
       - name: Setup AWS
         uses: aws-actions/configure-aws-credentials@v1
