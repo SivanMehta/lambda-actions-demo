@@ -1,6 +1,14 @@
 {
+  "main": "lib/index.js",
   "scripts": {
-    "build": "zip out.zip index.js",
-    "test": "echo it works"
+    "build": "zip out.zip lib/*.js node_modules",
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "assume": "^2.3.0",
+    "mocha": "^8.2.1"
+  },
+  "dependencies": {
+    "faker": "^5.1.0"
   }
 }
