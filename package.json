@@ -1,7 +1,7 @@
 {
   "main": "lib/index.js",
   "scripts": {
-    "build": "zip out.zip lib/*.js node_modules",
+    "build": "zip -r out.zip lib/ node_modules/ package.json",
     "test": "mocha"
   },
   "devDependencies": {
